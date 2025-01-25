@@ -15,8 +15,10 @@ function loading() {
 
 // hide loading
 function complete() {
-    quoteContainer.hidden = false;
-    loader.hidden = true;
+    if (!loader.hidden) {
+        quoteContainer.hidden = false;
+        loader.hidden = true;
+    }    
 }
 
 // show new quote
@@ -31,10 +33,10 @@ function newQuote() {
         authorText.textContent = quote.author;
     }
     //  check quote length to determine styling
-    if (quote.text.length > 90) {
+    if (quoteText.length > 90) {
         quoteText.classList.add('long-quote');
     } else {
-        quote.text.classList.remove('long-quote');
+        quoteText.classList.remove('long-quote'); 
     }
     // set quote, hide loader
     quoteText.textContent = quote.text;
@@ -51,6 +53,7 @@ async function getQuotes() {
         newQuote();
     } catch (error) {
         // catch error here
+        console.log('whoops no quote', error);                
     }
 }
 
